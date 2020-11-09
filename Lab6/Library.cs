@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -21,7 +22,9 @@ namespace Lab6
             get { return libAddress; }
             set { libAddress = value; }
         }
-        private Book[] listOfBook;
+        private Book[] ListOfBook;
+
+
 
         private int totalBook;
 
@@ -30,52 +33,78 @@ namespace Lab6
             get { return totalBook; }
             set { totalBook = value; }
         }
+        private Student[] libraryMember;
+
+        public Student[] LibraryMember
+        {
+            get { return libraryMember; }
+            set { libraryMember = value; }
+        }
+
 
         public Library()
         {
-            listOfBook = new Book[100];
+            ListOfBook = new Book[100];
         }
-        public Library(string libName, string libAddress, int totalBook)
+        public Library(string libName, string libAddress, int totalBook, Book[] listOfBook)
         {
+            
             this.libName = libName;
             this.libAddress = libAddress;
             this.totalBook = totalBook;
-            listOfBook = new Book[100];
+            ListOfBook = new Book[100];
+            for (int i = 0; i < totalBook; i++)
+            {
+                this.ListOfBook[i] = listOfBook[i];
+            }
+
         }
         public void ShowInfo()
         {
             Console.WriteLine("Library Name : " + libName);
             Console.WriteLine("Library Address : " + libAddress);
-            Console.WriteLine("total book : " + totalBook);
+            Console.WriteLine("Total book : " + totalBook);
+            Console.WriteLine();
         }
 
         public void ShowAllBook()
         {
             for (int i = 0; i < totalBook; i++)
             {
-                listOfBook[i].ShowInfo();
+                ListOfBook[i].ShowInfo();
+                Console.WriteLine();
             }
         }
-        public void AddNewBook(params Book[] book)
+        public void AddNewBook(Book book)
         {
-            foreach (var b in book)
+            ListOfBook[totalBook++] = book;
+
+
+        }
+        public void DeleteBook(Book book)
+        {
+            bool check = false;
+            for (int i = 0; i < totalBook; i++)
             {
-                if (totalBook < 100)
+                if (this.ListOfBook[i] == book)
                 {
-                    book[TotalBook++] = b;
+                    ListOfBook[i] = ListOfBook[i + 1];
+                    ListOfBook[i + 1] = book;
+                    check = true;
                 }
-                else
-                {
-                    Console.WriteLine("can't add new books");
-                }
+            }
+            if (check)
+            {
+                totalBook--;
+            }
+            else
+            {
+                Console.WriteLine("Book Not Found !!");
+
             }
         }
 
-        
+     }
 
-        }
-    }
-
-
-        
+ }
 

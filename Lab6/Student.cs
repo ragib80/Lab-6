@@ -35,6 +35,8 @@ namespace Lab6
             get { return cgpa; }
             set { cgpa = value; }
         }
+
+        
         public Student() { }
         public Student(string name,string id,string department,float cgpa)
         {
@@ -50,7 +52,7 @@ namespace Lab6
             Console.WriteLine("Department : " + department);
             Console.WriteLine("Cgpa : " + cgpa);
         }
-
+        
 
     }
 }

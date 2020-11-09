@@ -52,12 +52,16 @@ namespace Lab6
 
 
         }
-        public void Transfer(int amount, Account reciver)
+        public void Transfer(int amount, Account receiver)
         {
-            if (amount < balance)
+            if (this.balance < amount)
             {
-                balance = balance - amount;
-                reciver.balance += amount;
+                this.balance -= amount;
+                receiver.balance += amount;
+            }
+            else
+            {
+                Console.WriteLine("insufficient balance");
             }
 
         }
