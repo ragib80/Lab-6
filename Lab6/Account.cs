@@ -21,26 +21,26 @@ namespace Lab6
             set { acid = value; }
         }
 
-        private int balance;
+        private double balance;
 
-        public int Balance
+        public double Balance
         {
             get { return balance; }
             set { balance = value; }
         }
         public Account() { }
-        public Account(string accName, string acid, int balance)
+        public Account(string accName, string acid, double balance)
         {
             this.accName = accName;
             this.acid = acid;
             this.balance = balance;
         }
-        public void Deposit(int amount)
+        public void Deposit(double amount)
         {
             balance = balance + amount;
             Console.WriteLine("after depotist : " + amount + " your balance is : " + balance);
         }
-        public void Withdraw(int amount)
+        public void Withdraw(double amount)
         {
             balance = balance - amount;
 
@@ -52,17 +52,15 @@ namespace Lab6
 
 
         }
-        public void Transfer(int amount, Account receiver)
+        public void Transfer(double amount, Account receiver)
         {
-            if (this.balance < amount)
+            if ( amount <= Balance)
             {
-                this.balance -= amount;
-                receiver.balance += amount;
+                this.Balance -= amount;
+                receiver.Balance += amount;
+                 
             }
-            else
-            {
-                Console.WriteLine("insufficient balance");
-            }
+            
 
         }
     }

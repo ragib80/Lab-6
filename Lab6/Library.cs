@@ -24,8 +24,6 @@ namespace Lab6
         }
         private Book[] ListOfBook;
 
-
-
         private int totalBook;
 
         public int TotalBook
@@ -33,18 +31,16 @@ namespace Lab6
             get { return totalBook; }
             set { totalBook = value; }
         }
-        private Student[] libraryMember;
+       
 
-        public Student[] LibraryMember
-        {
-            get { return libraryMember; }
-            set { libraryMember = value; }
-        }
-
+        public Account Account { get; set; }
+        Borrow[] borrows;
+        public int BorrrowCount { get; set; }
 
         public Library()
         {
             ListOfBook = new Book[100];
+            borrows = new Borrow[1000];
         }
         public Library(string libName, string libAddress, int totalBook, Book[] listOfBook)
         {
@@ -57,8 +53,16 @@ namespace Lab6
             {
                 this.ListOfBook[i] = listOfBook[i];
             }
-
+            borrows = new Borrow[1000];
+           
         }
+        /*public Library(string name)
+        {
+            libName = name;
+            ListOfBook = new Book[100];
+            borrows = new Borrow[1000];
+        }*/
+       
         public void ShowInfo()
         {
             Console.WriteLine("Library Name : " + libName);
@@ -103,8 +107,73 @@ namespace Lab6
 
             }
         }
+        public void AddBook(Book[] books)
+        {
 
-     }
+            foreach (var book in books)
+            {
+                if (totalBook < 100)
+                {
+                    ListOfBook[totalBook++] = book;
+                }
+            }
+
+        }
+        public void AddNewBookCopy(Book book, int copy)
+        {
+            Console.WriteLine("new copy added : " + copy);
+            book.AddBookCopy(copy);
+            
+        }
+        public Book SearchBook(string id)
+        {
+            Book b = null;
+            for (int i = 0; i < totalBook; i++)
+            {
+                if (ListOfBook[i].BookId.Equals(id))
+                {
+                    b = ListOfBook[i];
+                    break;
+                }
+            }
+            return b;
+        }
+        public void AddBorrow(Borrow borrow)
+        {
+
+            borrows[BorrrowCount++] = borrow;
+
+        }
+        public void ShowAllBorrows()
+        {
+            Console.WriteLine("***************");
+            for (int i = 0; i < BorrrowCount; i++)
+            {
+                Console.WriteLine("--------------Book Borrow--------------\n ");
+                Console.WriteLine("Sudent info :-  \n");
+                borrows[i].Student.ShowInfo();
+                Console.WriteLine("Borrow info:-  \n");
+                borrows[i].ShowInfo();
+            }
+            Console.WriteLine("***************");
+        }
+
+        public void ReturnBook(Borrow b)
+        {
+            int crDay = DateTime.Now.Day;
+            if (crDay - b.Day > 5)
+            {
+                double amount = (crDay - b.Day - 5) * 10;
+                b.Student.Account.Transfer(amount,this.Account);
+                Console.WriteLine("Charge of {0} day ; Amount {1} ", (crDay - b.Day - 5),amount);
+            }
+            else
+            {
+                Console.WriteLine("No charge added, Thanking for giving back the book in right time :) ");
+            }
+        }
+        
+    }
 
  }
 

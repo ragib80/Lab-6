@@ -41,7 +41,10 @@ namespace Lab6
             get { return bookCopy; }
             set { bookCopy = value; }
         }
-        public Book() { }
+        public Book() 
+        { 
+
+        }
         public Book(string bookName,string bookAuthor,string bookId,string bookType,int bookCopy)
         {
             this.bookName = bookName;

@@ -36,23 +36,46 @@ namespace Lab6
             set { cgpa = value; }
         }
 
+        Borrow[] borrows;
         
-        public Student() { }
-        public Student(string name,string id,string department,float cgpa)
+        public int BorrrowCount { get; set; }
+        public Account Account { get; set; }
+        public Student()
+        {
+            borrows = new Borrow[100];
+            
+       } 
+
+
+        public Student(string name,string id)
         {
             this.name = name;
             this.id = id;
-            this.department = department;
-            this.cgpa = cgpa;
+            borrows = new Borrow[100];
+            
         }
         public void ShowInfo()
         {
             Console.WriteLine("Name : " + name);
             Console.WriteLine("ID : " + id);
-            Console.WriteLine("Department : " + department);
-            Console.WriteLine("Cgpa : " + cgpa);
+            Console.WriteLine("");
+            
         }
-        
+        public void ShowAllBorrows()
+        {
+            Console.WriteLine("***************");
+            for(int i = 0; i < BorrrowCount; i++)
+            {
+                borrows[i].ShowInfo();
+            }
+            Console.WriteLine("***************");
+        }
+        public void AddBorrow(Borrow borrow) 
+        {
 
+            borrows[BorrrowCount++] = borrow;
+        
+        }
+       
     }
 }
